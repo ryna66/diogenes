@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diogenes</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="dream-overlay" aria-hidden="true">
+    <span class="dream-star star-one"></span>
+    <span class="dream-star star-two"></span>
+    <span class="dream-star star-three"></span>
+    <span class="dream-cloud cloud-one"></span>
+    <span class="dream-cloud cloud-two"></span>
+</div>
+<header class="topbar">
+    <div class="brand">Diogenes</div>
+    <nav>
+        <a th:href="@{/}">Home</a>
+        <a th:href="@{/assessment}">Assessment</a>
+        <a th:href="@{/journal}">Journal</a>
+        <a th:href="@{/support}">Support</a>
+        <a th:href="@{/about}">About</a>
+    </nav>
+</header>
+
+<main class="page">
+    <section class="hero">
+        <div class="hero-copy">
+            <span class="eyebrow">A small pause</span>
+            <h1>Diogenes</h1>
+            <p>
+                A quiet place to check in with yourself, write down what the day felt like, and come back when you need a clearer view of how things have been.
+            </p>
+            <div class="hero-actions">
+                <a class="button primary" th:href="@{/assessment}">Start a check-in</a>
+                <a class="button secondary" th:href="@{/journal}">Write in the journal</a>
+            </div>
+        </div>
+        <div class="hero-panel">
+            <div class="hero-panel-copy">
+                <h3>How it helps</h3>
+                <p>No big setup. Just answer a few questions, write if you want, and come back later when you need context.</p>
+            </div>
+            <ol class="hero-checklist">
+                <li>Do a quick check-in.</li>
+                <li>See your latest result.</li>
+                <li>Write down what the day felt like.</li>
+                <li>Look back when you want perspective.</li>
+            </ol>
+        </div>
+    </section>
+
+    <section class="action-grid">
+        <article class="action-card">
+            <span class="category">Assessment</span>
+            <h2>Do a quick check-in</h2>
+            <p>Answer a few simple questions and save where your head is today.</p>
+            <p class="action-meta"><span th:text="${assessmentCount}">0</span> check-ins saved</p>
+            <a class="button primary" th:href="@{/assessment}">Open check-in</a>
+        </article>
+
+        <article class="action-card">
+            <span class="category">Journal</span>
+            <h2>Write things down</h2>
+            <p>Save a few honest lines about the day, even if they are messy.</p>
+            <p class="action-meta"><span th:text="${journalCount}">0</span> entries written</p>
+            <a class="button secondary" th:href="@{/journal}">Open journal</a>
+        </article>
+
+        <article class="action-card">
+            <span class="category">Support</span>
+            <h2>Go to support</h2>
+            <p>If you want something more direct, the support page gives a few grounded next steps.</p>
+            <p class="action-meta">Practical suggestions, no extra noise</p>
+            <a class="button secondary" th:href="@{/support}">Open support</a>
+        </article>
+    </section>
+</main>
+</body>
+</html>

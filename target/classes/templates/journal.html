@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diogenes - Journal</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="dream-overlay" aria-hidden="true">
+    <span class="dream-star star-one"></span>
+    <span class="dream-star star-two"></span>
+    <span class="dream-cloud cloud-one"></span>
+</div>
+<header class="topbar">
+    <div class="brand">Diogenes</div>
+    <nav>
+        <a th:href="@{/}">Home</a>
+        <a th:href="@{/assessment}">Assessment</a>
+        <a th:href="@{/journal}">Journal</a>
+        <a th:href="@{/support}">Support</a>
+        <a th:href="@{/about}">About</a>
+    </nav>
+</header>
+
+<main class="page inner-page">
+    <section class="page-head">
+        <span class="eyebrow">Journal</span>
+        <h1>Journal</h1>
+        <p>Write a few honest lines if you want. It does not have to sound polished.</p>
+        <div class="page-glow-bar"></div>
+    </section>
+
+    <section class="section-grid two-column">
+        <article class="card">
+            <div th:if="${param.success}" class="alert success">Your entry was saved.</div>
+            <form th:action="@{/journal}" th:object="${journalEntry}" method="post" class="form-stack">
+                <label>
+                    Date
+                    <input type="date" th:field="*{entryDate}">
+                    <small class="error" th:if="${#fields.hasErrors('entryDate')}" th:errors="*{entryDate}"></small>
+                </label>
+
+                <label>
+                    How did today feel overall?
+                    <select th:field="*{mood}">
+                        <option value="">Choose a word</option>
+                        <option th:each="moodOption : ${moods}"
+                                th:value="${moodOption}"
+                                th:text="${#strings.capitalize(#strings.toLowerCase(moodOption.name()))}"></option>
+                    </select>
+                    <small class="error" th:if="${#fields.hasErrors('mood')}" th:errors="*{mood}"></small>
+                </label>
+
+                <label>
+                    How heavy did the day feel? (1 = manageable, 5 = too much)
+                    <input type="number" th:field="*{workloadPressure}" min="1" max="5">
+                    <small class="error" th:if="${#fields.hasErrors('workloadPressure')}" th:errors="*{workloadPressure}"></small>
+                </label>
+
+                <label>
+                    How hard was it to get decent rest? (1 = rested, 5 = not much rest)
+                    <input type="number" th:field="*{sleepDifficulty}" min="1" max="5">
+                    <small class="error" th:if="${#fields.hasErrors('sleepDifficulty')}" th:errors="*{sleepDifficulty}"></small>
+                </label>
+
+                <label>
+                    How hard was it to focus? (1 = mostly okay, 5 = really hard)
+                    <input type="number" th:field="*{focusDifficulty}" min="1" max="5">
+                    <small class="error" th:if="${#fields.hasErrors('focusDifficulty')}" th:errors="*{focusDifficulty}"></small>
+                </label>
+
+                <label>
+                    How alone did you feel? (1 = supported, 5 = very alone)
+                    <input type="number" th:field="*{supportDifficulty}" min="1" max="5">
+                    <small class="error" th:if="${#fields.hasErrors('supportDifficulty')}" th:errors="*{supportDifficulty}"></small>
+                </label>
+
+                <label>
+                    What do you want to remember about today?
+                    <textarea th:field="*{note}" rows="6" placeholder="A few honest lines about the day..."></textarea>
+                    <small class="error" th:if="${#fields.hasErrors('note')}" th:errors="*{note}"></small>
+                </label>
+
+                <button class="button primary" type="submit">Save journal entry</button>
+            </form>
+        </article>
+
+        <article class="card">
+            <div class="section-title">
+                <h2>Recent entries</h2>
+            </div>
+            <div class="list-stack">
+                <div class="list-card" th:each="entry : ${entries}">
+                    <div class="list-top">
+                        <strong>Entry</strong>
+                        <span class="pill" th:text="${#temporals.format(entry.entryDate, 'dd MMM yyyy')}">08 Apr 2026</span>
+                    </div>
+                    <p>
+                        Mood: <strong th:text="${#strings.capitalize(#strings.toLowerCase(entry.mood.name()))}">Good</strong>
+                        | Stress pattern: <strong th:text="${entry.stressCategory}">Moderate Stress</strong>
+                    </p>
+                    <p>
+                        Workload <span th:text="${entry.workloadPressure}">0</span>/5,
+                        Rest <span th:text="${entry.sleepDifficulty}">0</span>/5,
+                        Focus <span th:text="${entry.focusDifficulty}">0</span>/5,
+                        Support <span th:text="${entry.supportDifficulty}">0</span>/5
+                    </p>
+                    <p th:text="${entry.note}">Note</p>
+                </div>
+            </div>
+        </article>
+    </section>
+</main>
+</body>
+</html>

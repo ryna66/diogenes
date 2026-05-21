@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diogenes - About</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="dream-overlay" aria-hidden="true">
+    <span class="dream-star star-two"></span>
+    <span class="dream-star star-three"></span>
+    <span class="dream-cloud cloud-one"></span>
+</div>
+<header class="topbar">
+    <div class="brand">Diogenes</div>
+    <nav>
+        <a th:href="@{/}">Home</a>
+        <a th:href="@{/assessment}">Assessment</a>
+        <a th:href="@{/journal}">Journal</a>
+        <a th:href="@{/support}">Support</a>
+        <a th:href="@{/about}">About</a>
+    </nav>
+</header>
+
+<main class="page inner-page">
+    <section class="page-head">
+        <span class="eyebrow">About The Project</span>
+        <h1>About</h1>
+        <p>Diogenes is a small check-in and journaling app built to feel calm, direct, and useful.</p>
+        <div class="page-glow-bar"></div>
+    </section>
+
+    <section class="section-grid two-column">
+        <article class="card">
+            <h2>Overview</h2>
+            <p>
+                The goal is simple: give someone a place to pause, name how they are doing, and leave a note they can come back to later.
+            </p>
+
+            <h2 class="extra-space">Tech Stack</h2>
+            <div class="chip-row">
+                <span class="chip">Java</span>
+                <span class="chip">Spring Boot</span>
+                <span class="chip">Thymeleaf</span>
+                <span class="chip">Spring Data JPA</span>
+                <span class="chip">H2 Database</span>
+                <span class="chip">HTML/CSS</span>
+            </div>
+        </article>
+
+        <article class="card">
+            <h2>What it includes</h2>
+            <div class="list-stack">
+                <div class="list-card" th:each="feature : ${features}">
+                    <p th:text="${feature}">Feature</p>
+                </div>
+            </div>
+
+            <h2 class="extra-space">Current Scope</h2>
+            <p>
+                Right now, the check-in and journal are the strongest parts of the project. The rest is lighter and still growing.
+            </p>
+        </article>
+    </section>
+</main>
+</body>
+</html>

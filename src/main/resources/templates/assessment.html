@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diogenes - Assessment</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="dream-overlay" aria-hidden="true">
+    <span class="dream-star star-two"></span>
+    <span class="dream-star star-three"></span>
+    <span class="dream-cloud cloud-two"></span>
+</div>
+<header class="topbar">
+    <div class="brand">Diogenes</div>
+    <nav>
+        <a th:href="@{/}">Home</a>
+        <a th:href="@{/assessment}">Assessment</a>
+        <a th:href="@{/journal}">Journal</a>
+        <a th:href="@{/support}">Support</a>
+        <a th:href="@{/about}">About</a>
+    </nav>
+</header>
+
+<main class="page inner-page">
+    <section class="page-head">
+        <span class="eyebrow">Assessment</span>
+        <h1>A quick check-in</h1>
+        <p>There is no perfect answer here. Just pick what feels closest today.</p>
+        <div class="page-glow-bar"></div>
+    </section>
+
+    <section class="section-grid two-column">
+        <article class="card">
+            <div th:if="${param.success}" class="alert success">Your check-in was saved.</div>
+            <form th:action="@{/assessment}" th:object="${assessmentResult}" method="post" class="form-stack">
+                <label>
+                    Which age group is this check-in for?
+                    <select th:field="*{ageGroup}">
+                        <option value="">Pick an age group</option>
+                        <option th:each="group : ${ageGroups}"
+                                th:value="${group}"
+                                th:text="${group.label}"></option>
+                    </select>
+                    <small class="error" th:if="${#fields.hasErrors('ageGroup')}" th:errors="*{ageGroup}"></small>
+                </label>
+
+                <label>
+                    About how much sleep have you been getting lately?
+                    <input type="number" th:field="*{sleepHours}" min="0" max="15">
+                    <small class="error" th:if="${#fields.hasErrors('sleepHours')}" th:errors="*{sleepHours}"></small>
+                </label>
+
+                <label>
+                    How has your energy felt recently?
+                    <select th:field="*{energyLevel}">
+                        <option value="">Pick the closest description</option>
+                        <option th:each="energyOption : ${energyOptions}"
+                                th:value="${energyOption}"
+                                th:text="${energyOption.label}"></option>
+                    </select>
+                    <small class="error" th:if="${#fields.hasErrors('energyLevel')}" th:errors="*{energyLevel}"></small>
+                </label>
+
+                <label>
+                    How has your mind felt lately?
+                    <select th:field="*{anxietyLevel}">
+                        <option value="">Pick the closest description</option>
+                        <option th:each="anxietyOption : ${anxietyOptions}"
+                                th:value="${anxietyOption}"
+                                th:text="${anxietyOption.label}"></option>
+                    </select>
+                    <small class="error" th:if="${#fields.hasErrors('anxietyLevel')}" th:errors="*{anxietyLevel}"></small>
+                </label>
+
+                <label>
+                    How supported do you feel these days?
+                    <select th:field="*{supportLevel}">
+                        <option value="">Pick the closest description</option>
+                        <option th:each="supportOption : ${supportOptions}"
+                                th:value="${supportOption}"
+                                th:text="${supportOption.label}"></option>
+                    </select>
+                    <small class="error" th:if="${#fields.hasErrors('supportLevel')}" th:errors="*{supportLevel}"></small>
+                </label>
+
+                <button class="button primary" type="submit">Save this check-in</button>
+            </form>
+        </article>
+
+        <article class="card">
+            <div class="section-title">
+                <h2>Most recent check-in</h2>
+            </div>
+            <div class="list-stack" th:if="${latestResult != null}">
+                <div class="list-card">
+                    <div class="list-top">
+                        <strong>Saved check-in</strong>
+                        <span class="pill accent" th:text="${latestResult.wellnessBand}">Stable</span>
+                    </div>
+                    <p>Age group: <span th:text="${latestResult.ageGroup.label}">Teen</span></p>
+                    <p>
+                        Sleep: <span th:text="${latestResult.sleepHours}">0</span> hours,
+                        Mind: <span th:text="${latestResult.anxietyLevel.label}">Carrying a lot</span>
+                    </p>
+                    <p th:text="${latestResult.recommendation}">Recommendation</p>
+                </div>
+            </div>
+            <div class="list-card" th:if="${latestResult == null}">
+                <p>Nothing saved yet. When you finish a check-in, it will show up here.</p>
+            </div>
+        </article>
+    </section>
+</main>
+</body>
+</html>
