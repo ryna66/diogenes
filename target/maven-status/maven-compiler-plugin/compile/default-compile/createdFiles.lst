@@ -1,5 +1,6 @@
 com/diogenes/controller/JournalController.class
 com/diogenes/repository/JournalEntryRepository.class
+com/diogenes/service/SurveyService$1.class
 com/diogenes/model/AssessmentResult.class
 com/diogenes/model/AnxietyCheckIn.class
 com/diogenes/controller/AssessmentController.class

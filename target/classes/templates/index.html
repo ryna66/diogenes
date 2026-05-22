@@ -19,6 +19,7 @@
     <nav>
         <a th:href="@{/}">Home</a>
         <a th:href="@{/assessment}">Assessment</a>
+        <a th:href="@{/survey}">Surveys</a>
         <a th:href="@{/journal}">Journal</a>
         <a th:href="@{/support}">Support</a>
         <a th:href="@{/about}">About</a>
@@ -35,6 +36,7 @@
             </p>
             <div class="hero-actions">
                 <a class="button primary" th:href="@{/assessment}">Start a check-in</a>
+                <a class="button secondary" th:href="@{/survey}">Take a survey</a>
                 <a class="button secondary" th:href="@{/journal}">Write in the journal</a>
             </div>
         </div>
@@ -59,6 +61,14 @@
             <p>Answer a few simple questions and save where your head is today.</p>
             <p class="action-meta"><span th:text="${assessmentCount}">0</span> check-ins saved</p>
             <a class="button primary" th:href="@{/assessment}">Open check-in</a>
+        </article>
+
+        <article class="action-card">
+            <span class="category">Surveys</span>
+            <h2>PHQ-9, GAD-7, WHO-5</h2>
+            <p>Choose a validated screening survey, get a scored result, and save guidance.</p>
+            <p class="action-meta"><span th:text="${surveyCount}">0</span> surveys saved</p>
+            <a class="button secondary" th:href="@{/survey}">Open surveys</a>
         </article>
 
         <article class="action-card">

@@ -18,6 +18,7 @@ public class HomeController {
     public String home(Model model) {
         model.addAttribute("journalCount", dashboardService.totalJournalEntries());
         model.addAttribute("assessmentCount", dashboardService.totalAssessments());
+        model.addAttribute("surveyCount", dashboardService.totalSurveys());
         return "index";
     }
 

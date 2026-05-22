@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diogenes - Surveys</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="dream-overlay" aria-hidden="true">
+    <span class="dream-star star-one"></span>
+    <span class="dream-star star-three"></span>
+    <span class="dream-cloud cloud-one"></span>
+</div>
+<header class="topbar">
+    <div class="brand">Diogenes</div>
+    <nav>
+        <a th:href="@{/}">Home</a>
+        <a th:href="@{/assessment}">Assessment</a>
+        <a th:href="@{/survey}">Surveys</a>
+        <a th:href="@{/journal}">Journal</a>
+        <a th:href="@{/support}">Support</a>
+        <a th:href="@{/about}">About</a>
+    </nav>
+</header>
+
+<main class="page inner-page">
+    <section class="page-head">
+        <span class="eyebrow">Structured surveys</span>
+        <h1>Validated wellness surveys</h1>
+        <p>Choose the concern that fits best, answer every question for that survey, and save a scored result with guidance.</p>
+        <div class="page-glow-bar"></div>
+    </section>
+
+    <section class="section-grid two-column">
+        <article class="card">
+            <div th:if="${param.success}" class="alert success">Your survey was saved.</div>
+
+            <form th:action="@{/survey}" th:object="${surveyForm}" method="post" class="form-stack" id="survey-form">
+                <div th:if="${#fields.hasGlobalErrors()}" class="alert">
+                    <span class="error" th:each="error : ${#fields.globalErrors()}" th:text="${error}">Error</span>
+                </div>
+                <fieldset class="survey-picker">
+                    <legend>Which survey fits your concern right now?</legend>
+                    <div class="survey-option-grid">
+                        <label class="survey-option" th:each="area : ${concernAreas}">
+                            <input type="radio" th:field="*{concernArea}" th:value="${area}">
+                            <span class="survey-option-copy">
+                                <strong th:text="${area.label}">Depression</strong>
+                                <small th:text="${area.surveyName}">PHQ-9</small>
+                                <p th:text="${area.description}">Description</p>
+                            </span>
+                        </label>
+                    </div>
+                    <small class="error" th:if="${#fields.hasErrors('concernArea')}" th:errors="*{concernArea}"></small>
+                </fieldset>
+
+                <div th:each="area : ${concernAreas}"
+                     class="survey-questions"
+                     th:id="${'questions-' + area.name()}"
+                     th:attr="data-question-count=${area.questionCount},
+                              data-scale-max=${area.name() == 'OVERALL_WELL_BEING' ? 5 : 3}"
+                     th:hidden="${surveyForm.concernArea == null or surveyForm.concernArea != area}">
+                    <div class="section-title">
+                        <h2 th:text="${area.surveyName}">Survey</h2>
+                        <span class="pill" th:text="${area.questionCount + ' questions'}">9 questions</span>
+                    </div>
+                    <p class="survey-intro" th:text="${area.keyFeatures}">Key features</p>
+
+                    <label th:each="prompt, stat : ${area.questionPrompts}">
+                        <span th:text="${stat.count + '. ' + prompt}">Question</span>
+                        <select th:field="*{responses[__${stat.index}__]}"
+                                th:disabled="${surveyForm.concernArea == null or surveyForm.concernArea != area}">
+                            <option value="">Choose an answer</option>
+                            <th:block th:if="${area.name() == 'OVERALL_WELL_BEING'}">
+                                <option value="0">At no time</option>
+                                <option value="1">Some of the time</option>
+                                <option value="2">Less than half of the time</option>
+                                <option value="3">More than half of the time</option>
+                                <option value="4">Most of the time</option>
+                                <option value="5">All of the time</option>
+                            </th:block>
+                            <th:block th:unless="${area.name() == 'OVERALL_WELL_BEING'}">
+                                <option value="0">Not at all</option>
+                                <option value="1">Several days</option>
+                                <option value="2">More than half the days</option>
+                                <option value="3">Nearly every day</option>
+                            </th:block>
+                        </select>
+                    </label>
+                </div>
+
+                <p class="survey-disclaimer">
+                    These screens use standard screening tools for self-reflection. They do not diagnose conditions or replace professional care.
+                </p>
+
+                <button class="button primary" type="submit">Save survey result</button>
+            </form>
+        </article>
+
+        <article class="card">
+            <div class="section-title">
+                <h2>Most recent survey result</h2>
+            </div>
+            <div class="list-stack" th:if="${latestSurvey != null}">
+                <div class="list-card">
+                    <div class="list-top">
+                        <strong th:text="${latestSurvey.surveyName}">PHQ-9</strong>
+                        <span class="pill accent" th:text="${latestSurvey.severityLabel}">Moderate</span>
+                    </div>
+                    <p>Concern: <span th:text="${latestSurvey.concernArea.label}">Depression</span></p>
+                    <p>
+                        Total score:
+                        <span th:text="${latestSurvey.totalScore}">0</span>
+                        <span th:if="${latestSurvey.percentageScore != null}">
+                            (<span th:text="${latestSurvey.percentageScore}">0</span>% well-being)
+                        </span>
+                    </p>
+                    <p th:if="${latestSurvey.urgentSupportSuggested}" class="alert">
+                        Urgent support is suggested based on your responses. Please reach out to someone you trust or a crisis line.
+                    </p>
+                    <p th:text="${latestSurvey.recommendation}">Recommendation</p>
+                    <a class="button secondary" th:href="@{/support}">Open support resources</a>
+                </div>
+            </div>
+            <div class="list-card" th:if="${latestSurvey == null}">
+                <p>No survey saved yet. Complete a survey on the left to see your scored result here.</p>
+            </div>
+
+            <div class="extra-space survey-reference">
+                <h3>Available surveys</h3>
+                <ul class="survey-reference-list">
+                    <li th:each="area : ${concernAreas}">
+                        <strong th:text="${area.surveyName}">Survey</strong>
+                        <span th:text="' — ' + area.recommendationSummary">Summary</span>
+                    </li>
+                </ul>
+            </div>
+        </article>
+    </section>
+</main>
+
+<script>
+    (function () {
+        const form = document.getElementById("survey-form");
+        if (!form) {
+            return;
+        }
+
+        const questionBlocks = Array.from(form.querySelectorAll(".survey-questions"));
+
+        function selectedConcern() {
+            const checked = form.querySelector('input[name="concernArea"]:checked');
+            return checked ? checked.value : null;
+        }
+
+        function syncQuestionBlocks() {
+            const concern = selectedConcern();
+            questionBlocks.forEach((block) => {
+                const matches = concern && block.id === "questions-" + concern;
+                block.hidden = !matches;
+                block.querySelectorAll("select").forEach((select) => {
+                    select.disabled = !matches;
+                    if (!matches) {
+                        select.value = "";
+                    }
+                });
+            });
+        }
+
+        form.querySelectorAll('input[name="concernArea"]').forEach((input) => {
+            input.addEventListener("change", syncQuestionBlocks);
+        });
+
+        syncQuestionBlocks();
+    })();
+</script>
+</body>
+</html>

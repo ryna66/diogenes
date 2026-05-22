@@ -5,7 +5,8 @@ Diogenes is a Java web application built with Spring Boot.
 ## Current Features
 
 - Journal with automatic stress categorization
-- Wellness self-assessment with Java-based age-aware recommendation logic
+- Quick wellness check-in with Java-based age-aware recommendation logic
+- Structured surveys page (PHQ-9, GAD-7, WHO-5) with scored results and guidance
 - Dated journal entries
 - Support guidance for different age groups
 - Input validation
@@ -46,7 +47,11 @@ Shows the main navigation and links to the main sections.
 
 ### Assessment
 
-Stores the latest assessment result based on age group, sleep, energy, anxiety, and support choices.
+Stores the latest quick check-in based on age group, sleep, energy, anxiety, and support choices.
+
+### Surveys
+
+Separate page at `/survey` for PHQ-9 (depression), GAD-7 (anxiety), and WHO-5 (well-being). Each submission saves total score, severity label, recommendation, and urgent-support flag when needed.
 
 ### Journal
 

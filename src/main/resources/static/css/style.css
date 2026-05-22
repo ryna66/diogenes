@@ -354,6 +354,75 @@ textarea {
     margin-top: 1.5rem;
 }
 
+.survey-picker {
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+
+.survey-picker legend {
+    margin-bottom: 0.8rem;
+    font-weight: 700;
+}
+
+.survey-option-grid {
+    display: grid;
+    gap: 0.8rem;
+}
+
+.survey-option {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.8rem;
+    align-items: start;
+    padding: 1rem;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    background: rgba(255, 255, 255, 0.08);
+    cursor: pointer;
+}
+
+.survey-option input[type="radio"] {
+    width: auto;
+    margin-top: 0.2rem;
+}
+
+.survey-option-copy {
+    display: grid;
+    gap: 0.35rem;
+}
+
+.survey-option-copy small {
+    color: var(--accent-blue);
+    font-weight: 700;
+}
+
+.survey-option-copy p {
+    margin: 0;
+    line-height: 1.5;
+}
+
+.survey-intro,
+.survey-disclaimer {
+    margin: 0;
+    line-height: 1.6;
+}
+
+.survey-disclaimer {
+    font-size: 0.9rem;
+}
+
+.survey-reference-list {
+    margin: 0.6rem 0 0;
+    padding-left: 1.1rem;
+    color: var(--muted);
+    line-height: 1.7;
+}
+
+.alert.success {
+    background: rgba(255, 240, 179, 0.18);
+}
+
 .checkbox-row {
     display: flex;
     align-items: flex-start;

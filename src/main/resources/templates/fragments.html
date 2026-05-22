@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="pageHead(title)">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${title}">Diogenes</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<header th:fragment="siteHeader(activePage)" class="topbar">
+    <div class="brand">Diogenes</div>
+    <nav>
+        <a th:href="@{/}"
+           th:classappend="${activePage == 'home'} ? ' active' : ''"
+           th:attr="aria-current=${activePage == 'home'} ? 'page' : null">Home</a>
+        <a th:href="@{/assessment}"
+           th:classappend="${activePage == 'assessment'} ? ' active' : ''"
+           th:attr="aria-current=${activePage == 'assessment'} ? 'page' : null">Assessment</a>
+        <a th:href="@{/survey}"
+           th:classappend="${activePage == 'survey'} ? ' active' : ''"
+           th:attr="aria-current=${activePage == 'survey'} ? 'page' : null">Surveys</a>
+        <a th:href="@{/journal}"
+           th:classappend="${activePage == 'journal'} ? ' active' : ''"
+           th:attr="aria-current=${activePage == 'journal'} ? 'page' : null">Journal</a>
+        <a th:href="@{/support}"
+           th:classappend="${activePage == 'support'} ? ' active' : ''"
+           th:attr="aria-current=${activePage == 'support'} ? 'page' : null">Support</a>
+        <a th:href="@{/about}"
+           th:classappend="${activePage == 'about'} ? ' active' : ''"
+           th:attr="aria-current=${activePage == 'about'} ? 'page' : null">About</a>
+    </nav>
+</header>
+</body>
+</html>
