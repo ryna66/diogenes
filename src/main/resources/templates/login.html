@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diogenes - Sign in</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<main class="page inner-page auth-page">
+    <section class="page-head">
+        <span class="eyebrow">Sign in</span>
+        <h1>Welcome back</h1>
+        <p>Sign in to save your check-ins, journal entries, and survey results privately.</p>
+    </section>
+
+    <article class="card auth-card">
+        <div th:if="${param.registered}" class="alert success">Account created. You can sign in now.</div>
+        <div th:if="${param.logout}" class="alert success">You have been signed out.</div>
+        <div th:if="${loginErrorMessage}" class="alert">
+            <span class="error" th:text="${loginErrorMessage}">Sign in failed.</span>
+        </div>
+
+        <form th:action="@{/login}" method="post" class="form-stack">
+            <label>
+                Email
+                <input type="email" name="email" autocomplete="username" required>
+            </label>
+            <label>
+                Password
+                <input type="password" name="password" autocomplete="current-password" required>
+            </label>
+            <button class="button primary" type="submit">Sign in</button>
+        </form>
+
+        <p class="auth-switch">
+            New here?
+            <a th:href="@{/register}">Create an account</a>
+        </p>
+    </article>
+</main>
+</body>
+</html>

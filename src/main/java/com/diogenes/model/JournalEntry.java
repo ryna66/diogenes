@@ -7,6 +7,8 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -22,6 +24,10 @@ public class JournalEntry {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "user_id", nullable = false)
+    private AppUser user;
 
     @NotNull(message = "Please choose the journal date")
     private LocalDate entryDate;
@@ -74,6 +80,14 @@ public class JournalEntry {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public AppUser getUser() {
+        return user;
+    }
+
+    public void setUser(AppUser user) {
+        this.user = user;
     }
 
     public LocalDate getEntryDate() {

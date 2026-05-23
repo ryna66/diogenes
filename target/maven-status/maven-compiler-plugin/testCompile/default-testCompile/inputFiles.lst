@@ -1,5 +1,9 @@
 /Users/awanishkumar/hornet/sem4/mpro/src/test/java/com/diogenes/ApplicationPageSmokeTest.java
+/Users/awanishkumar/hornet/sem4/mpro/src/test/java/com/diogenes/AuthIntegrationTest.java
 /Users/awanishkumar/hornet/sem4/mpro/src/test/java/com/diogenes/DiogenesApplicationTests.java
+/Users/awanishkumar/hornet/sem4/mpro/src/test/java/com/diogenes/UserDataIsolationTest.java
 /Users/awanishkumar/hornet/sem4/mpro/src/test/java/com/diogenes/controller/JournalControllerMvcTest.java
 /Users/awanishkumar/hornet/sem4/mpro/src/test/java/com/diogenes/service/JournalInsightServiceTest.java
 /Users/awanishkumar/hornet/sem4/mpro/src/test/java/com/diogenes/service/SurveyServiceTest.java
+/Users/awanishkumar/hornet/sem4/mpro/src/test/java/com/diogenes/service/UserAccountServiceTest.java
+/Users/awanishkumar/hornet/sem4/mpro/src/test/java/com/diogenes/support/AuthenticatedMvcTestSupport.java

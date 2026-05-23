@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      th:fragment="layout(title, activePage, content)">
+<head th:replace="~{fragments :: head(${title})}"></head>
+<body>
+<div th:replace="~{fragments :: dreamOverlay}"></div>
+<header th:replace="~{fragments :: siteHeader(${activePage})}"></header>
+<th:block th:replace="${content}"></th:block>
+</body>
+</html>

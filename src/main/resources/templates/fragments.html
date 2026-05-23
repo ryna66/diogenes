@@ -1,12 +1,21 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:fragment="pageHead(title)">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:fragment="head(title)">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title th:text="${title}">Diogenes</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
+<div th:fragment="dreamOverlay" class="dream-overlay" aria-hidden="true">
+    <span class="dream-star star-one"></span>
+    <span class="dream-star star-two"></span>
+    <span class="dream-star star-three"></span>
+    <span class="dream-cloud cloud-one"></span>
+    <span class="dream-cloud cloud-two"></span>
+</div>
+
 <header th:fragment="siteHeader(activePage)" class="topbar">
     <div class="brand">Diogenes</div>
     <nav>
@@ -28,6 +37,11 @@
         <a th:href="@{/about}"
            th:classappend="${activePage == 'about'} ? ' active' : ''"
            th:attr="aria-current=${activePage == 'about'} ? 'page' : null">About</a>
+        <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post" class="logout-form">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+            <button type="submit">Sign out</button>
+        </form>
+        <a sec:authorize="!isAuthenticated()" th:href="@{/login}">Sign in</a>
     </nav>
 </header>
 </body>

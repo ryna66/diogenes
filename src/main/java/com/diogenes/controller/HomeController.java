@@ -1,6 +1,6 @@
 package com.diogenes.controller;
 
-import com.diogenes.service.DashboardService;
+import com.diogenes.service.UserContentService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,17 +8,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class HomeController {
 
-    private final DashboardService dashboardService;
+    private final UserContentService userContentService;
 
-    public HomeController(DashboardService dashboardService) {
-        this.dashboardService = dashboardService;
+    public HomeController(UserContentService userContentService) {
+        this.userContentService = userContentService;
     }
 
     @GetMapping("/")
     public String home(Model model) {
-        model.addAttribute("journalCount", dashboardService.totalJournalEntries());
-        model.addAttribute("assessmentCount", dashboardService.totalAssessments());
-        model.addAttribute("surveyCount", dashboardService.totalSurveys());
+        model.addAttribute("journalCount", userContentService.journalCount());
+        model.addAttribute("assessmentCount", userContentService.assessmentCount());
+        model.addAttribute("surveyCount", userContentService.surveyCount());
+        model.addAttribute("activePage", "home");
         return "index";
     }
 
@@ -30,11 +31,13 @@ public class HomeController {
                 "Light stress summaries from journal answers",
                 "A support page with grounded next steps"
         });
+        model.addAttribute("activePage", "about");
         return "about";
     }
 
     @GetMapping("/community")
-    public String community() {
+    public String community(Model model) {
+        model.addAttribute("activePage", "community");
         return "community";
     }
 }

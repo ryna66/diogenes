@@ -423,6 +423,46 @@ textarea {
     background: rgba(255, 240, 179, 0.18);
 }
 
+.auth-page {
+    max-width: 520px;
+    margin: 0 auto;
+}
+
+.auth-card {
+    margin-top: 1rem;
+}
+
+.auth-switch {
+    margin: 1.2rem 0 0;
+    color: var(--muted);
+    text-align: center;
+}
+
+.auth-switch a {
+    text-decoration: underline;
+}
+
+.logout-form {
+    display: inline;
+    margin: 0;
+}
+
+.logout-form button {
+    border: 0;
+    background: transparent;
+    color: var(--muted);
+    font: inherit;
+    font-size: 0.92rem;
+    padding: 0.55rem 0.95rem;
+    border-radius: 999px;
+    cursor: pointer;
+}
+
+.logout-form button:hover {
+    color: var(--text);
+    background: rgba(255, 255, 255, 0.12);
+}
+
 .checkbox-row {
     display: flex;
     align-items: flex-start;

@@ -1,30 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diogenes - Journal</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}">
-</head>
-<body>
-<div class="dream-overlay" aria-hidden="true">
-    <span class="dream-star star-one"></span>
-    <span class="dream-star star-two"></span>
-    <span class="dream-cloud cloud-one"></span>
-</div>
-<header class="topbar">
-    <div class="brand">Diogenes</div>
-    <nav>
-        <a th:href="@{/}">Home</a>
-        <a th:href="@{/assessment}">Assessment</a>
-        <a th:href="@{/survey}">Surveys</a>
-        <a th:href="@{/journal}">Journal</a>
-        <a th:href="@{/support}">Support</a>
-        <a th:href="@{/about}">About</a>
-    </nav>
-</header>
-
-<main class="page inner-page">
+<html th:replace="~{layout :: layout('Diogenes - Journal', ${activePage}, ~{::main})}">
+<main th:fragment="main" class="page inner-page">
     <section class="page-head">
         <span class="eyebrow">Journal</span>
         <h1>Journal</h1>
@@ -113,5 +89,4 @@
         </article>
     </section>
 </main>
-</body>
 </html>

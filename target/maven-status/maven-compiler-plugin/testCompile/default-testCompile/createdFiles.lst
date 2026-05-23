@@ -1,1 +1,9 @@
 com/diogenes/DiogenesApplicationTests.class
+com/diogenes/service/UserAccountServiceTest.class
+com/diogenes/service/SurveyServiceTest.class
+com/diogenes/service/JournalInsightServiceTest.class
+com/diogenes/controller/JournalControllerMvcTest.class
+com/diogenes/UserDataIsolationTest.class
+com/diogenes/ApplicationPageSmokeTest.class
+com/diogenes/support/AuthenticatedMvcTestSupport.class
+com/diogenes/AuthIntegrationTest.class
